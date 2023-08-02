@@ -1,0 +1,215 @@
+
+Setting environment for using XAMPP for Windows.
+YASHWANTH REDDY@LAPTOP-GN3BI13I c:\Users\YASHWANTH REDDY\OneDrive\Desktop\SQL AND PYTHON
+# mysql.exe -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
+| yashwanth          |
++--------------------+
+6 rows in set (0.004 sec)
+
+MariaDB [(none)]> use yashwanth;
+Database changed
+MariaDB [yashwanth]> create table mani (sno int (3) not null,name char(200));
+Query OK, 0 rows affected (0.011 sec)
+
+MariaDB [yashwanth]> desc mani;
++-------+-----------+------+-----+---------+-------+
+| Field | Type      | Null | Key | Default | Extra |
++-------+-----------+------+-----+---------+-------+
+| sno   | int(3)    | NO   |     | NULL    |       |
+| name  | char(200) | YES  |     | NULL    |       |
++-------+-----------+------+-----+---------+-------+
+2 rows in set (0.004 sec)
+
+MariaDB [yashwanth]> create table student(sno int(3) unique,name char(100));
+Query OK, 0 rows affected (0.015 sec)
+
+MariaDB [yashwanth]> desc student;
++-------+-----------+------+-----+---------+-------+
+| Field | Type      | Null | Key | Default | Extra |
++-------+-----------+------+-----+---------+-------+
+| sno   | int(3)    | YES  | UNI | NULL    |       |
+| name  | char(100) | YES  |     | NULL    |       |
++-------+-----------+------+-----+---------+-------+
+2 rows in set (0.005 sec)
+
+MariaDB [yashwanth]> create table student(sno int(3) unique,not null name char(100));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'not null name char(100))' at line 1
+MariaDB [yashwanth]> create table student(sno int(3) unique,not null, name char(100));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'not null, name char(100))' at line 1
+MariaDB [yashwanth]> create table abcd ( sno int(3),name char(30),class char(3), check(class in('cse','cad')));
+Query OK, 0 rows affected (0.013 sec)
+
+MariaDB [yashwanth]> desc abcd;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| sno   | int(3)   | YES  |     | NULL    |       |
+| name  | char(30) | YES  |     | NULL    |       |
+| class | char(3)  | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+3 rows in set (0.005 sec)
+
+MariaDB [yashwanth]> create table abcde(fcode int(4) primarykey,fname char(10));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'fname char(10))' at line 1
+MariaDB [yashwanth]> create table abcde(fcode int(4) PrimaryKey,fname char(10));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'fname char(10))' at line 1
+MariaDB [yashwanth]> create table abcde(fcode int(4)primarykey,fname char(10));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'fname char(10))' at line 1
+MariaDB [yashwanth]> create table abcde(fcode int(4) Primarykey,fname char(10));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'fname char(10))' at line 1
+MariaDB [yashwanth]> create table abcde(fcode int(4) primary key,fname char(10));
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [yashwanth]> desc abcde;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| fcode | int(4)   | NO   | PRI | NULL    |       |
+| fname | char(10) | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+2 rows in set (0.005 sec)
+
+MariaDB [yashwanth]> create table product( pid int(2) primary key,pname char(10),quantity int(10));
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [yashwanth]> desc product;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| pid      | int(2)   | NO   | PRI | NULL    |       |
+| pname    | char(10) | YES  |     | NULL    |       |
+| quantity | int(10)  | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+3 rows in set (0.005 sec)
+
+MariaDB [yashwanth]> create table customer_orders(eid int(3) primary key, cname char(10),ppid int(2),foreign key(ppid) references product(pid));
+Query OK, 0 rows affected (0.014 sec)
+
+MariaDB [yashwanth]> insert into customer_orders(100,'Sanjay',11),(200,'karthik',22);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '100,'Sanjay',11),(200,'karthik',22)' at line 1
+MariaDB [yashwanth]> insert into customer_orders('100','Sanjay','11'),('200','karthik','22');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''100','Sanjay','11'),('200','karthik','22')' at line 1
+MariaDB [yashwanth]> insert into customer_orders (100,'Sanjay',11),(200,'karthik',22);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '100,'Sanjay',11),(200,'karthik',22)' at line 1
+MariaDB [yashwanth]> insert into customer_orders (100,'Sanjay',11),(200,'karthik',22);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '100,'Sanjay',11),(200,'karthik',22)' at line 1
+MariaDB [yashwanth]> insert into customer_orders ((100,'Sanjay',11),(200,'karthik',22));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '100,'Sanjay',11),(200,'karthik',22))' at line 1
+MariaDB [yashwanth]> desc customer_order;
+ERROR 1146 (42S02): Table 'yashwanth.customer_order' doesn't exist
+MariaDB [yashwanth]> desc customer_orders;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| eid   | int(3)   | NO   | PRI | NULL    |       |
+| cname | char(10) | YES  |     | NULL    |       |
+| ppid  | int(2)   | YES  | MUL | NULL    |       |
++-------+----------+------+-----+---------+-------+
+3 rows in set (0.005 sec)
+
+MariaDB [yashwanth]> create table products (Pno char(10),Pdesc char(15),Price decimal(10,2),quantity int(3), key(Pno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [yashwanth]> create table products (Pno char(10),Pdesc char(15),Price decimal(10,2),quantity int(3));
+Query OK, 0 rows affected (0.016 sec)
+
+MariaDB [yashwanth]> desc products;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| Pno      | char(10)      | YES  |     | NULL    |       |
+| Pdesc    | char(15)      | YES  |     | NULL    |       |
+| Price    | decimal(10,2) | YES  |     | NULL    |       |
+| quantity | int(3)        | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+4 rows in set (0.007 sec)
+
+MariaDB [yashwanth]> insert into products values ('p1','mouse',350,15);
+Query OK, 1 row affected (0.010 sec)
+
+MariaDB [yashwanth]> insert into products values ('p2','Keyboard',550,10);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [yashwanth]> select*from products;
++------+----------+--------+----------+
+| Pno  | Pdesc    | Price  | quantity |
++------+----------+--------+----------+
+| p1   | mouse    | 350.00 |       15 |
+| p2   | Keyboard | 550.00 |       10 |
++------+----------+--------+----------+
+2 rows in set (0.001 sec)
+
+MariaDB [yashwanth]> select * from products where price = 350;
++------+-------+--------+----------+
+| Pno  | Pdesc | Price  | quantity |
++------+-------+--------+----------+
+| p1   | mouse | 350.00 |       15 |
++------+-------+--------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [yashwanth]> select * from products where price < 545;
++------+-------+--------+----------+
+| Pno  | Pdesc | Price  | quantity |
++------+-------+--------+----------+
+| p1   | mouse | 350.00 |       15 |
++------+-------+--------+----------+
+1 row in set (0.000 sec)
+
+MariaDB [yashwanth]> select * from products where price > 350
+    -> ;
++------+----------+--------+----------+
+| Pno  | Pdesc    | Price  | quantity |
++------+----------+--------+----------+
+| p2   | Keyboard | 550.00 |       10 |
++------+----------+--------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [yashwanth]> insert into products values('p3','computer',4440,90),('p4','pendrive',700,567);
+Query OK, 2 rows affected (0.004 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [yashwanth]> select * from products
+    -> ;
++------+----------+---------+----------+
+| Pno  | Pdesc    | Price   | quantity |
++------+----------+---------+----------+
+| p1   | mouse    |  350.00 |       15 |
+| p2   | Keyboard |  550.00 |       10 |
+| p3   | computer | 4440.00 |       90 |
+| p4   | pendrive |  700.00 |      567 |
++------+----------+---------+----------+
+4 rows in set (0.001 sec)
+
+MariaDB [yashwanth]> select * from products where price between 350 to 700;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'to 700' at line 1
+MariaDB [yashwanth]> select * from products between price 350 to 700;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'between price 350 to 700' at line 1
+MariaDB [yashwanth]> select * from Pdesc where price  between 350 and 700;
+ERROR 1146 (42S02): Table 'yashwanth.pdesc' doesn't exist
+MariaDB [yashwanth]> select * from products,Pdesc where Price between 350 and 700;
+ERROR 1146 (42S02): Table 'yashwanth.pdesc' doesn't exist
+MariaDB [yashwanth]> select * from products,Pdesc where Price between 350 and 700;
+ERROR 1146 (42S02): Table 'yashwanth.pdesc' doesn't exist
+MariaDB [yashwanth]> select * from products where price between 300 to 4000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'to 4000' at line 1
+MariaDB [yashwanth]> select * from products where price BETWEEN 300 to 4000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'to 4000' at line 1
+MariaDB [yashwanth]> select * from products where price BETWEEN 350 TO 4000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'TO 4000' at line 1
+MariaDB [yashwanth]>
